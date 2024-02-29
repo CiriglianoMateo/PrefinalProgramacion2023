@@ -55,6 +55,7 @@
             // 
             // cboRelleno
             // 
+            cboRelleno.DropDownStyle = ComboBoxStyle.DropDownList;
             cboRelleno.FormattingEnabled = true;
             cboRelleno.Location = new Point(115, 153);
             cboRelleno.Margin = new Padding(3, 4, 3, 4);

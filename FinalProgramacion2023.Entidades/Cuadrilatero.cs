@@ -16,8 +16,8 @@ namespace FinalProgramacion2023.Entidades
         public Borde Borde { get; set; }
         public Relleno Relleno { get; set; }
 
-        public double GetArea() => LadoA * LadoB;
-        public double GetPerimetro() => 2 * LadoA + 2 * LadoB;
+        public int GetArea() => LadoA * LadoB;
+        public int GetPerimetro() => 2 * LadoA + 2 * LadoB;
 
         public string cuadrado
         {

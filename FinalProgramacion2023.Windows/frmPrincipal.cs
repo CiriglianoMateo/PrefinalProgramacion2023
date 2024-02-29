@@ -138,7 +138,7 @@ namespace FinalProgramacion2023.Windows
             {
                 return;
             }
-            
+
             MostrarDatosEnGrilla();
         }
 
