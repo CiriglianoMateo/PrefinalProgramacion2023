@@ -8,17 +8,39 @@ namespace FinalProgramacion2023.Entidades
 {
     public class Cuadrilatero
     {
-        public int LadoA { get; set; }
-        public int LadoB { get; set; }  
+
+
+        public int LadoA { set; get; }
+        public int LadoB { set; get; }
+
         public Borde Borde { get; set; }
         public Relleno Relleno { get; set; }
 
-        public void Add(Cuadrilatero cuadrilatero)
-        {
-            throw new NotImplementedException();
-        }
-
         public double GetArea() => LadoA * LadoB;
         public double GetPerimetro() => 2 * LadoA + 2 * LadoB;
+
+        public string cuadrado
+        {
+            get
+            {
+                return tipoCuadrado(LadoA, LadoB);
+            }
+
+        }
+
+        private static string tipoCuadrado(int ladoA, int ladoB)
+        {
+            if (ladoA == ladoB)
+            {
+                return "Cuadrado";
+            }
+            else
+            {
+                return "Rectangulo";
+
+            }
+
+
+        }
     }
 }

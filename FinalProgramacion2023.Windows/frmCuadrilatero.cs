@@ -1,44 +1,46 @@
-﻿using FinalProgramacion2023.Entidades;
+﻿using FinalProgramacion2023.Datos;
+using FinalProgramacion2023.Entidades;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Security.AccessControl;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-
 
 namespace FinalProgramacion2023.Windows
 {
     public partial class frmCuadrilatero : Form
     {
+        private Cuadrilatero cuadrilatero;
+        private List<Borde> listaBordes = Enum.GetValues(typeof(Borde)).Cast<Borde>().ToList();
+
         public frmCuadrilatero()
         {
             InitializeComponent();
+            CrearBordes();
         }
-        private Cuadrilatero cuadrilatero;
-        List<Borde> listaBordes = Enum.GetValues(typeof(Borde)).Cast<Borde>().ToList();
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            if (cuadrilatero != null )
+            {
+                base.OnLoad(e);
+                if (cuadrilatero != null)
+                {
+                    txtLadoA.Text = cuadrilatero.LadoA.ToString();
+                    txtLadoB.Text = cuadrilatero.LadoB.ToString();
+                }
+
+            }
             CargarComboColores();
-            CrearBordes();
         }
 
         private void CrearBordes()
         {
-
-            int X = 19;
-            int Y = 39;
-
+            int X = 60;
+            int Y = 35;
             bool check = true;
-            var listaBorde = Enum.GetValues(typeof(Borde)).Cast<Borde>().ToList();
-            foreach (var itemborde in listaBorde)
+            foreach (var itemborde in listaBordes)
             {
                 RadioButton rb = new RadioButton
                 {
@@ -48,24 +50,18 @@ namespace FinalProgramacion2023.Windows
                     Checked = check
                 };
                 groupBox1.Controls.Add(rb);
-                Y += 38;
+                Y += 34;
                 check = false;
             }
-
         }
 
         private void CargarComboColores()
         {
-            var listaRelleno = Enum.GetValues(typeof(Relleno))
-            .Cast<Relleno>().ToList();
+            var listaRelleno = Enum.GetValues(typeof(Relleno)).Cast<Relleno>().ToList();
             cboRelleno.DataSource = listaRelleno;
             cboRelleno.SelectedIndex = 1;
         }
 
-        private void Form2_Load(object sender, EventArgs e)
-        {
-
-        }
         public Cuadrilatero GetCuadrilatero()
         {
             return cuadrilatero;
@@ -73,55 +69,73 @@ namespace FinalProgramacion2023.Windows
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            if (validarDatos())
+            if (ValidarDatos())
             {
+                if (cuadrilatero == null) 
+                {
+                    cuadrilatero = new Cuadrilatero();
+                }
                 cuadrilatero = new Cuadrilatero();
-                cuadrilatero.LadoB = int.Parse(txtLadoB.Text);
                 cuadrilatero.LadoA = int.Parse(txtLadoA.Text);
+                cuadrilatero.LadoB = int.Parse(txtLadoB.Text);
                 cuadrilatero.Relleno = (Relleno)cboRelleno.SelectedItem;
                 cuadrilatero.Borde = ObtenerBorde();
-
                 DialogResult = DialogResult.OK;
             }
         }
 
         private Borde ObtenerBorde()
         {
-            Borde tipo = 0;
             foreach (var itemBorde in listaBordes)
             {
                 var key = $"rbt{itemBorde.ToString()}";
                 var rb = (RadioButton)groupBox1.Controls.Find(key, true)[0];
                 if (rb.Checked)
                 {
-                    tipo = itemBorde;
-                    break;
+                    return itemBorde;
                 }
             }
-            return tipo;
+            return Borde.Lineal; // Valor por defecto
         }
 
-        private bool validarDatos()
+        private bool ValidarDatos()
         {
             bool valido = true;
             errorProvider1.Clear();
-            if (!int.TryParse(txtLadoA.Text, out int baseRect))
+            if (!int.TryParse(txtLadoA.Text, out int ladoA))
             {
                 valido = false;
-                errorProvider1.SetError(txtLadoA, "Lado no numerico!");
+                errorProvider1.SetError(txtLadoA, "Lado no numérico!");
             }
-            else if (baseRect <= 0)
+            else if (ladoA <= 0)
             {
                 valido = false;
-                errorProvider1.SetError(txtLadoB, "Lado no válida!!!");
+                errorProvider1.SetError(txtLadoA, "Lado no válido!");
+            }
+
+            if (!int.TryParse(txtLadoB.Text, out int ladoB))
+            {
+                valido = false;
+                errorProvider1.SetError(txtLadoB, "Lado no numérico!");
+            }
+            else if (ladoB <= 0)
+            {
+                valido = false;
+                errorProvider1.SetError(txtLadoB, "Lado no válido!");
             }
             return valido;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.Cancel;
+            Close();
+        }
+
+        public void SetCuadrilatero(Cuadrilatero? cuadrilatero)
+        {
+            this.cuadrilatero = cuadrilatero;
         }
     }
 }
+
 

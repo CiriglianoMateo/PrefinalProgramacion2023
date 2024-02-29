@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 namespace FinalProgramacion2023.Entidades
 {
     public enum Relleno
-    {
+    { 
+        
         Azul = 1,
         Verde,
         Rojo,

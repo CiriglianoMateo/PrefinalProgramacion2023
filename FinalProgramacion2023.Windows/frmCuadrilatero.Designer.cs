@@ -30,9 +30,6 @@
         {
             components = new System.ComponentModel.Container();
             groupBox1 = new GroupBox();
-            rbtPuntos = new RadioButton();
-            rbtRayas = new RadioButton();
-            rbtLineal = new RadioButton();
             cboRelleno = new ComboBox();
             label4 = new Label();
             btnCancelar = new Button();
@@ -42,59 +39,19 @@
             txtLadoA = new TextBox();
             label1 = new Label();
             errorProvider1 = new ErrorProvider(components);
-            groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(rbtPuntos);
-            groupBox1.Controls.Add(rbtRayas);
-            groupBox1.Controls.Add(rbtLineal);
             groupBox1.Location = new Point(47, 192);
             groupBox1.Margin = new Padding(3, 4, 3, 4);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new Padding(3, 4, 3, 4);
-            groupBox1.Size = new Size(325, 101);
+            groupBox1.Size = new Size(325, 171);
             groupBox1.TabIndex = 16;
             groupBox1.TabStop = false;
             groupBox1.Text = " Bordes ";
-            // 
-            // rbtPuntos
-            // 
-            rbtPuntos.AutoSize = true;
-            rbtPuntos.Location = new Point(192, 39);
-            rbtPuntos.Margin = new Padding(3, 4, 3, 4);
-            rbtPuntos.Name = "rbtPuntos";
-            rbtPuntos.Size = new Size(74, 24);
-            rbtPuntos.TabIndex = 0;
-            rbtPuntos.TabStop = true;
-            rbtPuntos.Text = "Puntos";
-            rbtPuntos.UseVisualStyleBackColor = true;
-            // 
-            // rbtRayas
-            // 
-            rbtRayas.AutoSize = true;
-            rbtRayas.Location = new Point(102, 39);
-            rbtRayas.Margin = new Padding(3, 4, 3, 4);
-            rbtRayas.Name = "rbtRayas";
-            rbtRayas.Size = new Size(68, 24);
-            rbtRayas.TabIndex = 0;
-            rbtRayas.TabStop = true;
-            rbtRayas.Text = "Rayas";
-            rbtRayas.UseVisualStyleBackColor = true;
-            // 
-            // rbtLineal
-            // 
-            rbtLineal.AutoSize = true;
-            rbtLineal.Location = new Point(17, 39);
-            rbtLineal.Margin = new Padding(3, 4, 3, 4);
-            rbtLineal.Name = "rbtLineal";
-            rbtLineal.Size = new Size(69, 24);
-            rbtLineal.TabIndex = 0;
-            rbtLineal.TabStop = true;
-            rbtLineal.Text = "Lineal";
-            rbtLineal.UseVisualStyleBackColor = true;
             // 
             // cboRelleno
             // 
@@ -116,7 +73,7 @@
             // 
             // btnCancelar
             // 
-            btnCancelar.Location = new Point(286, 305);
+            btnCancelar.Location = new Point(286, 403);
             btnCancelar.Margin = new Padding(3, 4, 3, 4);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(86, 81);
@@ -127,7 +84,7 @@
             // 
             // btnOK
             // 
-            btnOK.Location = new Point(47, 305);
+            btnOK.Location = new Point(43, 403);
             btnOK.Margin = new Padding(3, 4, 3, 4);
             btnOK.Name = "btnOK";
             btnOK.Size = new Size(86, 81);
@@ -178,7 +135,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(426, 417);
+            ClientSize = new Size(423, 535);
             Controls.Add(groupBox1);
             Controls.Add(cboRelleno);
             Controls.Add(label4);
@@ -191,8 +148,6 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "frmCuadrilatero";
             Text = "frmCuadrilatero";
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -201,9 +156,6 @@
         #endregion
 
         private GroupBox groupBox1;
-        private RadioButton rbtPuntos;
-        private RadioButton rbtRayas;
-        private RadioButton rbtLineal;
         private ComboBox cboRelleno;
         private Label label4;
         private Button btnCancelar;

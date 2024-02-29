@@ -33,16 +33,19 @@
             tsbBorrar = new ToolStripButton();
             tsbEditar = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
-            tsbFiltrar = new ToolStripButton();
+            tsbFiltrar = new ToolStripDropDownButton();
+            porAreaToolStripMenuItem = new ToolStripMenuItem();
+            porColorToolStripMenuItem = new ToolStripMenuItem();
+            tsbColor = new ToolStripComboBox();
             tsbActualizar = new ToolStripButton();
             toolStripSeparator2 = new ToolStripSeparator();
-            tsbOrdenar = new ToolStripButton();
+            tsbOrdenar = new ToolStripDropDownButton();
+            ascendenteToolStripMenuItem = new ToolStripMenuItem();
+            descendenteToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator3 = new ToolStripSeparator();
             tsbSalir = new ToolStripButton();
             splitContainer1 = new SplitContainer();
             dgvDatos = new DataGridView();
-            txtCantidad = new TextBox();
-            label1 = new Label();
             colLadoA = new DataGridViewTextBoxColumn();
             colLadoB = new DataGridViewTextBoxColumn();
             colTipo = new DataGridViewTextBoxColumn();
@@ -50,6 +53,8 @@
             colBorde = new DataGridViewTextBoxColumn();
             colPerimetro = new DataGridViewTextBoxColumn();
             colArea = new DataGridViewTextBoxColumn();
+            txtCantidad = new TextBox();
+            label1 = new Label();
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -99,6 +104,7 @@
             tsbEditar.Size = new Size(52, 56);
             tsbEditar.Text = "Editar";
             tsbEditar.TextImageRelation = TextImageRelation.ImageAboveText;
+            tsbEditar.Click += tsbEditar_Click;
             // 
             // toolStripSeparator1
             // 
@@ -107,13 +113,35 @@
             // 
             // tsbFiltrar
             // 
+            tsbFiltrar.DropDownItems.AddRange(new ToolStripItem[] { porAreaToolStripMenuItem, porColorToolStripMenuItem });
             tsbFiltrar.Image = Properties.Resources.filled_filter_32px;
             tsbFiltrar.ImageScaling = ToolStripItemImageScaling.None;
             tsbFiltrar.ImageTransparentColor = Color.Magenta;
             tsbFiltrar.Name = "tsbFiltrar";
-            tsbFiltrar.Size = new Size(51, 56);
+            tsbFiltrar.Size = new Size(61, 56);
             tsbFiltrar.Text = "Filtrar";
             tsbFiltrar.TextImageRelation = TextImageRelation.ImageAboveText;
+            // 
+            // porAreaToolStripMenuItem
+            // 
+            porAreaToolStripMenuItem.Name = "porAreaToolStripMenuItem";
+            porAreaToolStripMenuItem.Size = new Size(224, 26);
+            porAreaToolStripMenuItem.Text = "Por Area";
+            porAreaToolStripMenuItem.Click += porAreaToolStripMenuItem_Click;
+            // 
+            // porColorToolStripMenuItem
+            // 
+            porColorToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { tsbColor });
+            porColorToolStripMenuItem.Name = "porColorToolStripMenuItem";
+            porColorToolStripMenuItem.Size = new Size(224, 26);
+            porColorToolStripMenuItem.Text = "Por Color";
+            // 
+            // tsbColor
+            // 
+            tsbColor.DropDownStyle = ComboBoxStyle.DropDownList;
+            tsbColor.Name = "tsbColor";
+            tsbColor.Size = new Size(121, 28);
+            tsbColor.SelectedIndexChanged += tsbColor_SelectedIndexChanged;
             // 
             // tsbActualizar
             // 
@@ -124,6 +152,7 @@
             tsbActualizar.Size = new Size(79, 56);
             tsbActualizar.Text = "Actualizar";
             tsbActualizar.TextImageRelation = TextImageRelation.ImageAboveText;
+            tsbActualizar.Click += tsbActualizar_Click;
             // 
             // toolStripSeparator2
             // 
@@ -132,13 +161,28 @@
             // 
             // tsbOrdenar
             // 
+            tsbOrdenar.DropDownItems.AddRange(new ToolStripItem[] { ascendenteToolStripMenuItem, descendenteToolStripMenuItem });
             tsbOrdenar.Image = Properties.Resources.sorting_arrows_32px;
             tsbOrdenar.ImageScaling = ToolStripItemImageScaling.None;
             tsbOrdenar.ImageTransparentColor = Color.Magenta;
             tsbOrdenar.Name = "tsbOrdenar";
-            tsbOrdenar.Size = new Size(67, 56);
+            tsbOrdenar.Size = new Size(77, 56);
             tsbOrdenar.Text = "Ordenar";
             tsbOrdenar.TextImageRelation = TextImageRelation.ImageAboveText;
+            // 
+            // ascendenteToolStripMenuItem
+            // 
+            ascendenteToolStripMenuItem.Name = "ascendenteToolStripMenuItem";
+            ascendenteToolStripMenuItem.Size = new Size(178, 26);
+            ascendenteToolStripMenuItem.Text = "Ascendente";
+            ascendenteToolStripMenuItem.Click += ascendenteToolStripMenuItem_Click;
+            // 
+            // descendenteToolStripMenuItem
+            // 
+            descendenteToolStripMenuItem.Name = "descendenteToolStripMenuItem";
+            descendenteToolStripMenuItem.Size = new Size(178, 26);
+            descendenteToolStripMenuItem.Text = "Descendente";
+            descendenteToolStripMenuItem.Click += descendenteToolStripMenuItem_Click;
             // 
             // toolStripSeparator3
             // 
@@ -186,15 +230,82 @@
             dgvDatos.Dock = DockStyle.Fill;
             dgvDatos.Location = new Point(0, 0);
             dgvDatos.Margin = new Padding(3, 4, 3, 4);
+            dgvDatos.MultiSelect = false;
             dgvDatos.Name = "dgvDatos";
             dgvDatos.ReadOnly = true;
             dgvDatos.RowHeadersWidth = 51;
             dgvDatos.RowTemplate.Height = 25;
+            dgvDatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvDatos.Size = new Size(914, 449);
             dgvDatos.TabIndex = 0;
             // 
+            // colLadoA
+            // 
+            colLadoA.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colLadoA.HeaderText = "Lado A";
+            colLadoA.MinimumWidth = 6;
+            colLadoA.Name = "colLadoA";
+            colLadoA.ReadOnly = true;
+            colLadoA.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // colLadoB
+            // 
+            colLadoB.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colLadoB.HeaderText = "Lado B";
+            colLadoB.MinimumWidth = 6;
+            colLadoB.Name = "colLadoB";
+            colLadoB.ReadOnly = true;
+            colLadoB.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // colTipo
+            // 
+            colTipo.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colTipo.HeaderText = "Tipo";
+            colTipo.MinimumWidth = 6;
+            colTipo.Name = "colTipo";
+            colTipo.ReadOnly = true;
+            colTipo.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // colRelleno
+            // 
+            colRelleno.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colRelleno.HeaderText = "Relleno";
+            colRelleno.MinimumWidth = 6;
+            colRelleno.Name = "colRelleno";
+            colRelleno.ReadOnly = true;
+            colRelleno.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // colBorde
+            // 
+            colBorde.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colBorde.HeaderText = "Borde";
+            colBorde.MinimumWidth = 6;
+            colBorde.Name = "colBorde";
+            colBorde.ReadOnly = true;
+            colBorde.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // colPerimetro
+            // 
+            colPerimetro.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colPerimetro.HeaderText = "Perimetro";
+            colPerimetro.MinimumWidth = 6;
+            colPerimetro.Name = "colPerimetro";
+            colPerimetro.ReadOnly = true;
+            colPerimetro.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // colArea
+            // 
+            colArea.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colArea.HeaderText = "Area";
+            colArea.MinimumWidth = 6;
+            colArea.Name = "colArea";
+            colArea.ReadOnly = true;
+            colArea.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
             // txtCantidad
             // 
+            txtCantidad.Enabled = false;
+            txtCantidad.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             txtCantidad.Location = new Point(115, 28);
             txtCantidad.Margin = new Padding(3, 4, 3, 4);
             txtCantidad.Name = "txtCantidad";
@@ -210,62 +321,6 @@
             label1.TabIndex = 0;
             label1.Text = "Cantidad:";
             // 
-            // colLadoA
-            // 
-            colLadoA.HeaderText = "Lado A";
-            colLadoA.MinimumWidth = 6;
-            colLadoA.Name = "colLadoA";
-            colLadoA.ReadOnly = true;
-            colLadoA.Width = 125;
-            // 
-            // colLadoB
-            // 
-            colLadoB.HeaderText = "Lado B";
-            colLadoB.MinimumWidth = 6;
-            colLadoB.Name = "colLadoB";
-            colLadoB.ReadOnly = true;
-            colLadoB.Width = 125;
-            // 
-            // colTipo
-            // 
-            colTipo.HeaderText = "Tipo";
-            colTipo.MinimumWidth = 6;
-            colTipo.Name = "colTipo";
-            colTipo.ReadOnly = true;
-            colTipo.Width = 125;
-            // 
-            // colRelleno
-            // 
-            colRelleno.HeaderText = "Relleno";
-            colRelleno.MinimumWidth = 6;
-            colRelleno.Name = "colRelleno";
-            colRelleno.ReadOnly = true;
-            colRelleno.Width = 125;
-            // 
-            // colBorde
-            // 
-            colBorde.HeaderText = "Borde";
-            colBorde.MinimumWidth = 6;
-            colBorde.Name = "colBorde";
-            colBorde.ReadOnly = true;
-            colBorde.Width = 125;
-            // 
-            // colPerimetro
-            // 
-            colPerimetro.HeaderText = "Perimetro";
-            colPerimetro.MinimumWidth = 6;
-            colPerimetro.Name = "colPerimetro";
-            colPerimetro.ReadOnly = true;
-            colPerimetro.Width = 125;
-            // 
-            // colArea
-            // 
-            colArea.HeaderText = "Area";
-            colArea.MinimumWidth = 6;
-            colArea.Name = "colArea";
-            colArea.ReadOnly = true;
-            colArea.Width = 125;
-            // 
             // frmPrincipal
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -276,6 +331,7 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "frmPrincipal";
             Text = "frmPrincipal";
+            Load += frmPrincipal_Load;
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
             splitContainer1.Panel1.ResumeLayout(false);
@@ -295,10 +351,8 @@
         private ToolStripButton tsbBorrar;
         private ToolStripButton tsbEditar;
         private ToolStripSeparator toolStripSeparator1;
-        private ToolStripButton tsbFiltrar;
         private ToolStripButton tsbActualizar;
         private ToolStripSeparator toolStripSeparator2;
-        private ToolStripButton tsbOrdenar;
         private ToolStripSeparator toolStripSeparator3;
         private ToolStripButton tsbSalir;
         private SplitContainer splitContainer1;
@@ -312,5 +366,12 @@
         private DataGridViewTextBoxColumn colBorde;
         private DataGridViewTextBoxColumn colPerimetro;
         private DataGridViewTextBoxColumn colArea;
+        private ToolStripDropDownButton tsbFiltrar;
+        private ToolStripMenuItem porAreaToolStripMenuItem;
+        private ToolStripMenuItem porColorToolStripMenuItem;
+        private ToolStripComboBox tsbColor;
+        private ToolStripDropDownButton tsbOrdenar;
+        private ToolStripMenuItem ascendenteToolStripMenuItem;
+        private ToolStripMenuItem descendenteToolStripMenuItem;
     }
 }
